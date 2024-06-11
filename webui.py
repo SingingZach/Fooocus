@@ -173,11 +173,11 @@ with shared.gradio_root:
                                         with gr.Row():
                                             default_end, default_weight = flags.default_parameters[flags.default_ip]
 
-                                            ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.001, value=default_end)
+                                            ip_stop = gr.Slider(label='Stop At', minimum=0.0, maximum=1.0, step=0.1, value=default_end)
                                             ip_stops.append(ip_stop)
                                             ip_ctrls.append(ip_stop)
 
-                                            ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.001, value=default_weight)
+                                            ip_weight = gr.Slider(label='Weight', minimum=0.0, maximum=2.0, step=0.1, value=default_weight)
                                             ip_weights.append(ip_weight)
                                             ip_ctrls.append(ip_weight)
 
@@ -366,7 +366,7 @@ with shared.gradio_root:
                         base_model = gr.Dropdown(label='Base Model (SDXL only)', choices=modules.config.model_filenames, value=modules.config.default_base_model_name, show_label=True)
                         refiner_model = gr.Dropdown(label='Refiner (SDXL or SD 1.5)', choices=['None'] + modules.config.model_filenames, value=modules.config.default_refiner_model_name, show_label=True)
 
-                    refiner_switch = gr.Slider(label='Refiner Switch At', minimum=0.1, maximum=1.0, step=0.0001,
+                    refiner_switch = gr.Slider(label='Refiner Switch At', minimum=0.1, maximum=1.0, step=0.1,
                                                info='Use 0.4 for SD1.5 realistic models; '
                                                     'or 0.667 for SD1.5 anime models; '
                                                     'or 0.8 for XL-refiners; '
@@ -395,10 +395,10 @@ with shared.gradio_root:
                 with gr.Row():
                     refresh_files = gr.Button(label='Refresh', value='\U0001f504 Refresh All Files', variant='secondary', elem_classes='refresh_button')
             with gr.Tab(label='Advanced'):
-                guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.01,
+                guidance_scale = gr.Slider(label='Guidance Scale', minimum=1.0, maximum=30.0, step=0.5,
                                            value=modules.config.default_cfg_scale,
                                            info='Higher value means style is cleaner, vivider, and more artistic.')
-                sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=30.0, step=0.001,
+                sharpness = gr.Slider(label='Image Sharpness', minimum=0.0, maximum=40.0, step=0.5,
                                       value=modules.config.default_sample_sharpness,
                                       info='Higher value means image and texture are sharper.')
                 gr.HTML('<a href="https://github.com/lllyasviel/Fooocus/discussions/117" target="_blank">\U0001F4D4 Document</a>')
@@ -417,7 +417,7 @@ with shared.gradio_root:
                         refiner_swap_method = gr.Dropdown(label='Refiner swap method', value=flags.refiner_swap_method,
                                                           choices=['joint', 'separate', 'vae'])
 
-                        adaptive_cfg = gr.Slider(label='CFG Mimicking from TSNR', minimum=1.0, maximum=30.0, step=0.01,
+                        adaptive_cfg = gr.Slider(label='CFG Mimicking from TSNR', minimum=1.0, maximum=30.0, step=0.1,
                                                  value=modules.config.default_cfg_tsnr,
                                                  info='Enabling Fooocus\'s implementation of CFG mimicking for TSNR '
                                                       '(effective when real CFG > mimicked CFG).')
@@ -499,7 +499,7 @@ with shared.gradio_root:
                                                                       value=False)
 
                         controlnet_softness = gr.Slider(label='Softness of ControlNet', minimum=0.0, maximum=1.0,
-                                                        step=0.001, value=0.25,
+                                                        step=0.1, value=0.25,
                                                         info='Similar to the Control Mode in A1111 (use 0.0 to disable). ')
 
                         with gr.Tab(label='Canny'):
